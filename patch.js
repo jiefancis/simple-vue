@@ -11,6 +11,7 @@ function createPatchFunction() {
             i(vnode)
         }
         if(vnode.componentInstance) {
+            // vue2中规定组件只能有一个根节点
             parentElm.appendChild(vnode.elm)
             return true
         }
