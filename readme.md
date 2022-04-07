@@ -7,17 +7,17 @@
 #### vue-router如何实现路由变化与视图响应式更新关联？
 > 1. VueRouter.install种将 vm._route 定义为响应式  
 
-> 2. router-view组件中访问$route （返回_route）触发依赖收集，此时是updateComponent触发设置了watcher阶段 
+> 2. router-view组件中访问$route （返回_route）触发依赖收集，此时是updateComponent触发设置了watcher阶段  
 
 > 3. router.push等api变化最后会触发 app._route = newRoute的操作触发依赖更新  
 
-# vuex如何实现响应式？
+#### vuex如何实现响应式？
 
 > 1. new Vue({ data: options.state})
 
 > 2. 在页面渲染过程中，当访问到store的数据，触发依赖收集，将new Watcher(vm, updateComponent)收集到数据中，等待数据发生改变触发依赖更新
 
-# 组件如何处理？在何时接入？
+#### 组件如何处理？在何时接入？
 
 > 1. render中h函数会优先解析组件Ctor，Vue.extend(Ctor)将Ctor设置为继承Vue的子实例构造函数
 
