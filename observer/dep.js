@@ -13,3 +13,7 @@ export default class Dep{
         this.subs.forEach(dep => dep())
     }
 }
+
+export const pushTarget = (watcher) => {
+    Dep.target = watcher
+}

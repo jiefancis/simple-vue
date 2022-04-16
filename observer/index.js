@@ -9,7 +9,7 @@ export function observer(o) {
             o.__proto__ = ArrayMethods
             // 遍历数组内部，元素是对象类型则继续劫持
             o.forEach(observer)
-        } else if(typeof o === 'object') {
+        } else if(isObject(o)) {
             Object.keys(o).forEach(key => {
                 defineReactive(o, key, o[key])
             })
