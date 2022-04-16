@@ -1,28 +1,59 @@
-#### 双向数据绑定有两个核心点：收集与触发。在合适的时机收集，收集的是watcher
+实现一个mini-Vue
+=============
 
-#### vue2中watcher有三种：computed watch render，意味着要收集的只有这三种watcher
+### Vue框架的核心
+-  响应系统
 
-#### 收集watcher前需要将当前watcher标记为待收集状态（new Watcher -> pushTarget）
+-  编译器
 
-#### vue-router如何实现路由变化与视图响应式更新关联？
-> 1. VueRouter.install种将 vm._route 定义为响应式  
+-  渲染器
 
-> 2. router-view组件中访问$route （返回_route）触发依赖收集，此时是updateComponent触发设置了watcher阶段  
+-  组件化  
 
-> 3. router.push等api变化最后会触发 app._route = newRoute的操作触发依赖更新  
 
-#### vuex如何实现响应式？
+### 响应系统
+- watcher分类
+  - computed watcher
+  - watch watcher   
+  - render watcher  
 
-> 1. new Vue({ data: options.state})
+- 依赖收集与触发
+  - 确保每个数据都有自已的依赖收集器dep，在合适的时机收集依赖。
 
-> 2. 在页面渲染过程中，当访问到store的数据，触发依赖收集，将new Watcher(vm, updateComponent)收集到数据中，等待数据发生改变触发依赖更新
+  - 收集watcher前需要将当前watcher标记为待收集状态（new Watcher() -> pushTarget）
 
-#### 组件如何处理？在何时接入？
 
-> 1. render中h函数会优先解析组件Ctor，Vue.extend(Ctor)将Ctor设置为继承Vue的子实例构造函数
+### 组件化
 
-> 2. 将组件vnode.data.hook添加 init函数，该函数中会执行new Vue().$mount操作实现挂载
+-  单文件组件中js部分里的export default导出的是组件对象
+   - 单文件组件template被编译器编译并生成render函数，将render函数赋值到组件对象中  
 
-> 3. 创建vnode并返回
+-  Vdom如何描述组件？
+   - 执行（父）组件的render函数生成组件vdom的过程中，vue在解析到（子）组件标签时，首先取得注册的子组件对象Ctor，并通过Vue.extend(Ctor)将Ctor构造成原型对象为Vue的构造函数
 
-> 4. 组件的处理在patch中，createElm()每一个vnode都会判断是否是组件，是则走组件初始化挂载流程
+   - 在组件data.hook对象添加 init函数，init函数实现组件的初始化和挂载操作（即new Vue().$mount()）
+
+   - 创建vnode并返回，vnode中componentOptions属性包含组件的构造函数等参数
+
+-  子组件在父组件的哪个生命周期中执行挂载(更新)？
+
+   - 在patch挂载中，createElm挂载前会判断当前vnode是否是组件？判断依据为当前vnode数据的data.hook.init是否存在？是则执行init()操作，对组件进行初始化及挂载操作；此时父组件处在beforeMount阶段
+
+   - 因此，父子组件的生命周期执行顺序为父beforeCreate -> 父created -> 父beforeMount -> 子beforeCreated -> 子created -> 子beforeMount -> 子mounted -> 父mounted
+
+
+### vue-router如何实现路由变化与视图响应式更新关联？
+- VueRouter.install种将 $route、_route 赋予响应式  
+
+- router-view组件中访问$route （返回_route）触发依赖收集并收集到render watcher，这个阶段watcher为render watcher。
+
+- router.push等api变化最后会触发 app._route = newRoute的操作触发依赖更新  
+
+
+### vuex如何实现响应式？
+
+-  Store.state赋值为响应式（new Vue({ data: Store.state})）
+
+- 在页面渲染过程中，当访问到store的数据，触发依赖收集（此时是render watcher），将new Watcher(vm, updateComponent)收集到数据中，等待数据发生改变触发依赖更新
+
+
