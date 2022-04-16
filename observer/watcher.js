@@ -19,7 +19,7 @@ class Watcher{
             this.getter.call(this.vm, this.vm)
         } catch(e) {
             console.warn(`watcher get occur error: ${e}`)
-        }
+        } 
         // 置空当前依赖目标
         pushTarget()
     }
