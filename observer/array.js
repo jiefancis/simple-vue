@@ -4,7 +4,7 @@ import { observer } from "."
 // 对数组中新增的数据进行劫持，赋予响应性
 // 但是其它plain object则只能先定义好才能具备响应性（后面通过this.$set弥补这个弊端）
 // let o = p.pop()弹出object，o依然具有响应性
-var methods = [
+const methods = [
     'push',
     'pop',
     'shift',
@@ -14,8 +14,8 @@ var methods = [
     'reverse'
 ]
 
-var ArrayPrototype = Array.prototype
-var ArrayMethods = Object.create(ArrayPrototype)
+const ArrayPrototype = Array.prototype
+export const ArrayMethods = Object.create(ArrayPrototype)
 
 methods.forEach(method => {
     let original = ArrayPrototype[method]
