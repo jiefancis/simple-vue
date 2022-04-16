@@ -1,4 +1,5 @@
 import { isObject } from "../utils";
+import { VNode } from './vnode'
 
 function installComponentHooks(data) {
     if(!data.hook) {
@@ -12,13 +13,17 @@ function installComponentHooks(data) {
 } 
 
 function createComponentInstanceForVnode(vnode) {
-    // const options = {
-    //     _isComponent: true,
-    //     parentNode: vnode
-    // }
+    const options = {
+        _isComponent: true,
+        parentNode: vnode,
+        render: function() {
+            console.log('如果组件没有render方法，编译器会将template编译后的render方法添加到options对象中')
+            return new VNode()
+        }
+    }
     
     // new Vue()
-    return new vnode.componentOptions.Ctor()
+    return new vnode.componentOptions.Ctor(options)
 }
 
 

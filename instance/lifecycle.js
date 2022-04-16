@@ -26,7 +26,7 @@ export function lifecycleMixin(Vue) {
 }
 
 export function mountComponent(vm, el) {
-    // this.$el组件的根元素
+    // this.$el,组件的根元素
     vm.$el = el
     function updateComponent(vm, el) {
         // watcher中使用call实现this指向vm实例
