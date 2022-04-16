@@ -14,7 +14,7 @@ export function isDef(v) {
     return v !== undefined && v !== null
 }
 
-export function resoveAsset(options, type, tag) {
+export function resolveAsset(options, type, tag) {
     const assets = options[type]
     
     // return assets[tag]

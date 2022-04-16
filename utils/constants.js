@@ -1,8 +1,8 @@
 
-// Vue的静态属性（Vue[type]）
+// Vue的静态属性（Vue[type]()）
 export const ASSET_TYPES = [
     'component',
-    'use',
+    'filter',
     // 'mixin',
     'directive'
 ]

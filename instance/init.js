@@ -8,8 +8,6 @@ export function initMixin(Vue) {
         
         // render函数的 ( h ) 参数
         vm.$createElement = createElement.bind(vm)
-        // Vue构造函数，生成组件vnode tree过程中，使用Vue.extend将子组件构造为Vue的子类
-        vm.$options._base = Vue
 
         if(options.el) {
             // 挂载的容器

@@ -1,6 +1,6 @@
 import { ASSET_TYPES } from '../utils/constants'
 
-export default function extendMixin(Vue) {
+export default function initExtend(Vue) {
     Vue.extend = function(options) {
         let Super = this
 
