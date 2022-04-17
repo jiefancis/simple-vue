@@ -8,7 +8,13 @@ const stats = {}
 LIFECYCLE_HOOKS.forEach(hook => {
     stats[hook] = mergeHook
 })
-
+// 生命周期钩子合并为一个数组
+/**
+ * {
+ *  beforeCreate: [],
+ *  created: []
+ * }
+ */
 function mergeHook(parentVal, childVal) {
     return childVal ?
              parentVal ?
@@ -23,7 +29,7 @@ stats.methods =
 stats.inject =
 stats.props =
 stats.computed =
-function mergeData(parentVal, childVal) {
+function(parentVal, childVal) {
     let options = {}
     if(parentVal) {
         extend(options, parentVal)
@@ -38,6 +44,20 @@ function mergeData(parentVal, childVal) {
 // data methods props computed的合并是组件优先于外部mixin的选项
 // lifecycle等生命周期的合并是合并为一个数组
 export function mergeOptions(parent, child, vm) {
-   
+    let options = {}
+
+    for(let key in parent) {
+        mergeField(key)
+    }
+    for(let key in child) {
+        if(!parent.hasOwnProperty(key)) {
+            mergeField(key)
+        }
+    }
+    function mergeField(key) {
+        const stat = stats[key]
+        options[key] = stat(parent[key], child[key])
+    }
+    return options
 }
 
