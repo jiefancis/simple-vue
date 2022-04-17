@@ -11,7 +11,8 @@ export default function initExtend(Vue) {
         Sub.prototype = Object.create(Super.prototype)
         Sub.prototype.constructor = Sub
         Sub.options = options
-
+        
+        Sub.super = Super
         // 将Vue的静态属性添加到子类上
         ASSET_TYPES.forEach(prop => {
             Sub[prop] = Super(prop)
