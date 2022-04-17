@@ -19,3 +19,7 @@ export function resolveAsset(options, type, tag) {
     
     // return assets[tag]
 }
+
+export function extend(to, from) {
+    return Object.assign({}, from, to)
+}
