@@ -5,9 +5,12 @@ export default function reactive(o) {
         get(target, key, receiver) {
             // 取值
             let value = Reflect.get(target, key)
-
             // 收集依赖
             track(target, key)
+            // 如果是对象，递归处理。
+            if(value && typeof value === 'object') {
+                return reactive(value)
+            }
             return value
         },
 
