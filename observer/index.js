@@ -17,7 +17,7 @@ export function observer(o) {
     }
 }
 
-function defineReactive(target, key, value) {
+export function defineReactive(target, key, value) {
     let descriptor = Object.getOwnPropertyDescriptor(target, key)
     let getter = descriptor?.get
     let setter = descriptor?.set
@@ -28,8 +28,8 @@ function defineReactive(target, key, value) {
     if(!descriptor?.configurable){
         return
     }
-    // 第一次劫持getter 跟 setter均为undefined，为避免求值出错，先求值
-    if((!getter || setter)){
+    // 第一次劫持getter 跟 setter均为undefined，如果没有传入value，则需要先求值
+    if((!getter || setter) && arguments.length === 2){
         value = target[key]
     }
     // 深层递归劫持

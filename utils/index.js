@@ -23,3 +23,7 @@ export function resolveAsset(options, type, tag) {
 export function extend(to, from) {
     return Object.assign({}, from, to)
 }
+const hasOwnProperty = Object.prototype.hasOwnProperty
+export function hasOwn(target, key) {
+    return  hasOwnProperty.call(target, key)
+}
