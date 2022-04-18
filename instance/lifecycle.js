@@ -2,6 +2,10 @@ import { query } from '../utils'
 import { Watcher } from '../observer/watcher'
 import { patch } from '../vdom/patch'
 
+export let activeInstance = null
+function setActiveInstance(vm) {
+    activeInstance = vm
+}
 
 export function initLifecycle(vm) {
     const options = vm.$options
@@ -14,6 +18,7 @@ export function initLifecycle(vm) {
 export function lifecycleMixin(Vue) {
     Vue.prototype._update = function(vnode) {
         const vm = this
+        setActiveInstance(vm)
         const prevVnode = vm._vnode;
         // 挂载
         if(!prevVNode) {
@@ -25,6 +30,7 @@ export function lifecycleMixin(Vue) {
         
         // 保存当前vnode tree，用于比较。
         vm._vnode = vnode
+        setActiveInstance(null)
     }
 
     // new Vue.$mount(options.el)
