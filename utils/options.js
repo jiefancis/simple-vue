@@ -1,4 +1,4 @@
-
+// 对 data props computed inject methods watch components filters directives及生命周期钩子等进行选项合并
 import { LIFECYCLE_HOOKS } from './constants'
 import { extend, hasOwn } from './index'
 import { defineReactive } from '../observer/index'
@@ -30,6 +30,9 @@ function mergeHook(parentVal, childVal) {
 stats.methods =
 stats.inject =
 stats.props =
+stats.components =
+stats.filters =
+stats.directives =
 stats.computed = function(parentVal, childVal) {
     let options = Object.create(parentVal)
     if(childVal) {
@@ -96,3 +99,17 @@ export function mergeOptions(parent, child, vm) {
     return options
 }
 
+
+// compnents
+export function resolveAsset(
+    options,
+    type,
+    id
+) {
+    // 查询当前组件是否有注册过该资源？没有则向原型对象上找
+    // Constructor.options是$options的原型对象，具体实现在this._init -> initInternalComponent
+    // 处理type，连线转驼峰 首字母大写，这里默认id符合命名规范
+
+    const asset = options[type]
+    return asset[id]
+}

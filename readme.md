@@ -47,9 +47,15 @@
 
    - 因此，父子组件的生命周期执行顺序为父beforeCreate -> 父created -> 父beforeMount -> 子beforeCreated -> 子created -> 子beforeMount -> 子mounted -> 父mounted
 
-### 父子组件事件
+### 父子组件
 
--  vm实例内部维护一个属性：_events，当通过vm.$on(name, fn)注册事件时，vm_events内部维护一个数组，（vm._events[name] = [fn]）
+-  事件
+   -  vm实例内部维护一个属性：_events，当通过vm.$on(name, fn)注册事件时，vm_events内部维护一个数组，（vm._events[name] = [fn]）
+
+-  provide与inject
+   -  遍历子组件的inject，如果在子组件中找不到对应的属性，vm.$parent访问父组件查找
+
+-  props与$emit
 
 
 ### vue-router如何实现路由变化与视图响应式更新关联？
