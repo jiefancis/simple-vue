@@ -42,7 +42,7 @@ function isRealElement(el) {
 }
 function updateComponent(n1, n2, container) {
     console.log('render vnode tree', n2)
-    container = isRealElement(container) ? container : document.querySelector(container)
+    container = isRealElement(container) ? container : document.querySelector(container) ? document.querySelector(container): document.body
     patch(n1, n2, container)
 }
 

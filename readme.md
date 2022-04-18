@@ -7,6 +7,16 @@
 
 -  vue3函数式编程，vue3则是在框架内部维护一个组件对象，不对外暴露[简单实现](https://github.com/jiefancis/simple-vue/blob/master/Vue3/demo.js)
 
+### 虽然vue3已经慢慢普及了，还是把vue2的实现细节看了看，深入了解以下问题：
+
+- vue2父子组件通信中子组件如何获取到父组件传递的props？
+- 子组件如何实现$emit的事件中的this指向父组件？
+- vue的全局api（Vue.extend Vue.use Vue.mixin Vue.component）注册后如何实现全局都可使用？
+- 三种watcher（computed watch render）分别在什么时候实例化以确保数据能收集到正确的watcher？
+- provide和inject如何实现深层传递？
+- 全（局）子组件的处理有什么不同？
+- render(h)的h函数中如何区分tag和component？
+
 ### Vue框架的核心
 -  响应系统
 
@@ -75,7 +85,6 @@ render: function (createElement) {
   })
 }
 ```
-
 
 ### vue-router如何实现路由变化与视图响应式更新关联？
 - VueRouter.install种将 $route、_route 赋予响应式  
