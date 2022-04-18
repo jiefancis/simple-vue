@@ -1,5 +1,5 @@
 import { createComponent } from './create-component'
-import { resoveAsset } from '../utils'
+import { resoveAsset } from '../utils/options'
 /**
  * 
  * @param {*} tag      标签

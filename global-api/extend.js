@@ -28,6 +28,11 @@ export default function initExtend(Vue) {
             // 将Vue的静态属性添加到子类上
             Sub[prop] = Super[prop]
         })
+        
+        
+        Sub.superOptions = Super.options
+        Sub.extendOptions = extendOptions
+        Sub.sealedOptions = Object.assign({}, Sub.options)
         return Sub
     }
 }
