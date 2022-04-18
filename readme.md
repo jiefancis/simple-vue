@@ -5,7 +5,7 @@
 
 -  vue2是面向对象，所有的模块都为这个组件实例服务，并且将各种api和属性挂载在实例上，页面中开发者通过this拿到组件实例
 
--  vue3函数式编程，vue3则是在框架内部维护一个组件对象，不对外暴露
+-  vue3函数式编程，vue3则是在框架内部维护一个组件对象，不对外暴露[简单实现](https://github.com/jiefancis/simple-vue/blob/master/Vue3/demo.js)
 
 ### Vue框架的核心
 -  响应系统
@@ -55,7 +55,26 @@
 -  provide与inject
    -  遍历子组件的inject，如果在子组件中找不到对应的属性，vm.$parent访问父组件查找
 
--  props与$emit
+-  props与$emit如何访问到父组件的数据？
+   - self是父组件vm实例
+   - self.$emit，此时self是父组件，input事件保存在子组件input内部，在$emit触发时，input内部vm是父组件，因此确保了input事件正确执行
+
+```
+props: ['value'],
+render: function (createElement) {
+  var self = this
+  return createElement('input', {
+    domProps: {
+      value: self.value
+    },
+    on: {
+      input: function (event) {
+        self.$emit('input', event.target.value)
+      }
+    }
+  })
+}
+```
 
 
 ### vue-router如何实现路由变化与视图响应式更新关联？

@@ -1,6 +1,6 @@
 import { createElement } from '../vdom/create-element'
 import { mergeOptions } from '../utils/options'
-import { initLifecycle } from './lifecycle'
+import { initLifecycle, callHook } from './lifecycle'
 
 export function initMixin(Vue) {
     // 初始化vm实例
@@ -21,6 +21,8 @@ export function initMixin(Vue) {
         }
         
         initLifecycle(vm)
+        callHook(vm, 'beforeCreate')
+        
         // render函数的 ( h ) 参数
         vm.$createElement = createElement.bind(vm)
 

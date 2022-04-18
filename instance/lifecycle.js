@@ -56,7 +56,7 @@ export function mountComponent(vm, el) {
     callHook(vm, 'mounted')
 }
 
-function callHook(vm, hook) {
+export function callHook(vm, hook) {
     let handlers = vm.$options[hook]
     if(Array.isArray(handlers)) {
         handlers.forEach(handler => {
