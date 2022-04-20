@@ -1,6 +1,7 @@
 /**
  * 依靠对pinia的简单使用及对vue的理解，简单实现pinia
  */
+import { reactive } from './reactivity/reactive'
 var useStore = defineStore('abcdefg', {
     state: () => {
         return {
@@ -45,23 +46,5 @@ function defineStore(id, options) {
 
 }
 
-
-function reactive(o) {
-    return new Proxy(o, {
-        get(target, key, receiver){
-            let value = Reflect.get(target, key)
-            console.log('target key', target, key, value)
-            if(value && typeof value === 'object') {
-                return reactive(value)
-            }
-            return value
-        },
-        set(target, key, newValue) {
-            let value = Reflect.get(target, key)
-            console.log('更新值', target, key, value, newValue)
-            if(value !== newValue) {
-                Reflect.set(target, key, newValue)
-            }
-        }
-    })
-}
+var store = useStore()
+console.log(store.count)
