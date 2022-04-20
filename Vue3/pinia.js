@@ -35,12 +35,12 @@ function defineStore(id, options) {
         if(activeStore[id]) {
            return activeStore[id]
         }
-        let store = activeStore[id] = Object.create({
+        let store = activeStore[id] = reactive(Object.create({
             ...state(),
             ...getters,
             ...actions
-        })
-        return reactive(store)
+        }))
+        return store
    }
 
 }
