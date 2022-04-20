@@ -46,3 +46,12 @@ export function trigger(target, key) {
     let deps = getDeps(target, key)
     deps.forEach(effect => effect.run())
 }
+
+export function trackRefValue(deps) {
+    if(activeEffect && !deps.has(activeEffect)) {
+        deps.add(activeEffect)
+    }
+}
+export function triggerRefValue(deps) {
+    deps.forEach(effect => effect.run())
+}
