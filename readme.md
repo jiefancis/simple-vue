@@ -11,6 +11,7 @@
 
 - 双向绑定对于数组与普通对象的处理有什么不同？
 - 多个数据或者一个数据被多次更新，会立马更新视图吗？
+- [watch侦听对象新值与旧值相等的原因及解决](https://github.com/jiefancis/simple-vue/issues/3)
 - vue2父子组件通信中子组件如何获取到父组件传递的props？
 - 子组件如何实现$emit的事件中的this指向父组件？
 - vue的全局api（Vue.extend Vue.use Vue.mixin Vue.component）注册后如何实现全局都可使用？
